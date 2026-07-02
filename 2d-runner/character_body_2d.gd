@@ -52,3 +52,7 @@ func _on_diebox_body_entered(body: Node2D) -> void:
 
 func _on_spring_area_body_entered(body: Node2D) -> void:
 	velocity.y = (JUMP_VELOCITY*3)
+
+
+func _on_win_box_body_entered(body: Node2D) -> void:
+	get_tree().paused = true
