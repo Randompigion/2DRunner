@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dsnds84ds6ef3"]
+[gd_scene format=4 uid="uid://dsnds84ds6ef3"]
 
 [ext_resource type="Script" uid="uid://btxlbrj133xtf" path="res://character_body_2d.gd" id="1_dlsqh"]
 [ext_resource type="Texture2D" uid="uid://c46ks4ml3tsw1" path="res://Assets/CatBanana/Jump (1).png" id="2_fb8oy"]
@@ -47,6 +47,12 @@
 [ext_resource type="Texture2D" uid="uid://mfcjgjmpy8ie" path="res://Assets/TileMap.png" id="36_ehl8c"]
 [ext_resource type="Texture2D" uid="uid://chwydg56u23kb" path="res://Assets/CatBanana/Run (11).png" id="36_nbfl0"]
 [ext_resource type="Texture2D" uid="uid://dvnmvbkdlj4ur" path="res://Assets/CatBanana/Run (12).png" id="37_1pe1k"]
+[ext_resource type="AudioStream" uid="uid://0hfk60mytqih" path="res://Audio/Wrong_Way_Up.mp3" id="47_1rg0j"]
+[ext_resource type="Texture2D" uid="uid://3ev6aa812i5v" path="res://Assets/Spike.png" id="48_y5wg1"]
+[ext_resource type="Texture2D" uid="uid://c00vli1kvxoaw" path="res://Assets/Spring1.png" id="49_falnr"]
+[ext_resource type="Texture2D" uid="uid://de0qh637xos3a" path="res://Assets/Spring2.png" id="50_1rg0j"]
+[ext_resource type="Texture2D" uid="uid://cpykxl5jtx65f" path="res://Assets/Spring3.png" id="51_ckaff"]
+[ext_resource type="Script" uid="uid://c77e6rtxr37i5" path="res://spring.gd" id="52_o2jwt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cqaj7"]
 animations = [{
@@ -198,54 +204,430 @@ animations = [{
 }],
 "loop": true,
 "name": &"Run",
-"speed": 32.0
+"speed": 64.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_45cra"]
 radius = 95.0
 height = 360.0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fb8oy"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ewk01"]
+radius = 110.0
+height = 366.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vxrlp"]
 texture = ExtResource("36_ehl8c")
-texture_region_size = Vector2i(2560, 2560)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1280, -1280, 1264, -1280, 1264, -52, -1296, -124)
+texture_region_size = Vector2i(256, 256)
 1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1280, -1280, 1264, -1280, 1264, -52, -1296, -124)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, -33.186264, -128, -33.186264)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, -33.186264, -128, -33.186264)
 2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1280, -1280, 1264, -1280, 1264, -52, -1296, -124)
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, -33.186264, -128, -33.186264)
 3:0/0 = 0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1280, -1280, 1264, -1280, 1264, -52, -1296, -124)
-4:0/0 = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1280, -1280, 1264, -1280, 1264, -52, -1296, -124)
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, -33.186264, -128, -33.186264)
 5:0/0 = 0
-5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1280, -1280, 1264, -1280, 1264, -52, -1296, -124)
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, -33.186264, -128, -33.186264)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, -33.186264, -128, -33.186264)
 
-[sub_resource type="TileSet" id="TileSet_vcfvp"]
-tile_size = Vector2i(2560, 2560)
+[sub_resource type="TileSet" id="TileSet_y5wg1"]
+tile_size = Vector2i(256, 256)
 physics_layer_0/collision_layer = 1
-sources/2 = SubResource("TileSetAtlasSource_fb8oy")
+sources/0 = SubResource("TileSetAtlasSource_vxrlp")
 
-[node name="2dRunnerGame" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxrlp"]
+size = Vector2(202592, 1218)
 
-[node name="Catbanana" type="CharacterBody2D" parent="."]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewk01"]
+size = Vector2(162, 102)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrkxx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("49_falnr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_1rg0j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_ckaff")
+}],
+"loop": false,
+"name": &"Bounce",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vo1wn"]
+size = Vector2(258, 227)
+
+[node name="2dRunnerGame" type="Node2D" unique_id=77025808]
+
+[node name="Catbanana" type="CharacterBody2D" parent="." unique_id=1069790216]
+collision_layer = 2
+collision_mask = 15
 script = ExtResource("1_dlsqh")
 
-[node name="Sprites" type="AnimatedSprite2D" parent="Catbanana"]
+[node name="Sprites" type="AnimatedSprite2D" parent="Catbanana" unique_id=1818856061]
 unique_name_in_owner = true
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_cqaj7")
-animation = &"Fall"
+animation = &"Jump"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Catbanana"]
+[node name="Collision" type="CollisionShape2D" parent="Catbanana" unique_id=1690951808]
 position = Vector2(24, 9)
 shape = SubResource("CapsuleShape2D_45cra")
 
-[node name="Camera2D" type="Camera2D" parent="Catbanana"]
-zoom = Vector2(0.2, 0.2)
+[node name="Camera2D" type="Camera2D" parent="Catbanana" unique_id=99775474]
+position = Vector2(804, 155)
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
-[node name="TileMap" type="TileMap" parent="."]
-scale = Vector2(0.5, 0.5)
-tile_set = SubResource("TileSet_vcfvp")
-format = 2
-layer_0/tile_data = PackedInt32Array(65536, 327682, 0, 65537, 262146, 0, 65538, 327682, 0, 65539, 327682, 0, 65540, 327682, 0, 65541, 327682, 0)
+[node name="jumpTimer" type="Timer" parent="Catbanana" unique_id=1468234165]
+unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true
+
+[node name="Diebox" type="Area2D" parent="Catbanana" unique_id=1596761399]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 4
+
+[node name="DieboxCollision" type="CollisionShape2D" parent="Catbanana/Diebox" unique_id=1008306431]
+position = Vector2(23, 16)
+shape = SubResource("CapsuleShape2D_ewk01")
+debug_color = Color(0.21352401, 0.6347459, 0.24120533, 0.41960785)
+
+[node name="Bg" type="AudioStreamPlayer" parent="Catbanana" unique_id=236095461]
+stream = ExtResource("47_1rg0j")
+autoplay = true
+
+[node name="TileMap" type="TileMapLayer" parent="." unique_id=1978587870]
+position = Vector2(0, -1)
+tile_map_data = PackedByteArray("AAD//wIAAAAFAAAAAAAAAAIAAAAFAAAAAAABAAIAAAAFAAAAAAACAAIAAAAFAAAAAAADAAIAAAADAAAAAAAEAAIAAAAFAAAAAAAFAAIAAAAFAAAAAAAGAAIAAAAFAAAAAAAHAAIAAAAFAAAAAAAJAAIAAAABAAAAAAAKAAIAAAAFAAAAAAALAAIAAAAFAAAAAAAOAAIAAAAFAAAAAAAXAAIAAAAFAAAAAAAYAAIAAAACAAAAAAAZAAIAAAACAAAAAAAbAAIAAAACAAAAAAAfAAIAAAACAAAAAAAeAAIAAAADAAAAAAAIAAIAAAACAAAAAAAMAAIAAAACAAAAAAANAAIAAAADAAAAAAAaAAIAAAADAAAAAAAWAAIAAAADAAAAAAAVAAIAAAADAAAAAAAcAAIAAAADAAAAAAAdAAIAAAADAAAAAAASAAIAAAACAAAAAAATAAIAAAADAAAAAAAUAAIAAAAAAAAAAAAQAAIAAAAEAAAAAAARAAIAAAAFAAAAAABLAAIAAAAFAAAAAABMAAIAAAAFAAAAAABNAAIAAAAEAAAAAABOAAIAAAAFAAAAAABPAAIAAAAFAAAAAABQAAIAAAAEAAAAAABRAAIAAAAEAAAAAABSAAIAAAAFAAAAAABTAAIAAAAEAAAAAABZAAIAAAAEAAAAAABaAAIAAAAEAAAAAABbAAIAAAAFAAAAAABcAAIAAAACAAAAAABdAAIAAAADAAAAAABeAAIAAAADAAAAAABfAAIAAAADAAAAAABgAAIAAAABAAAAAABhAAIAAAACAAAAAABiAAIAAAACAAAAAABjAAIAAAABAAAAAABoAAMAAAAFAAAAAABpAAMAAAAFAAAAAABqAAMAAAAFAAAAAABrAAMAAAAFAAAAAABsAAMAAAAFAAAAAABtAAMAAAAFAAAAAABuAAMAAAAFAAAAAABvAAMAAAAFAAAAAAByAAQAAAAFAAAAAABzAAQAAAAFAAAAAAB0AAQAAAAFAAAAAAB1AAQAAAAFAAAAAAB2AAQAAAAFAAAAAAB3AAQAAAAFAAAAAAB4AAQAAAAFAAAAAAB5AAQAAAAFAAAAAAB6AAQAAAAFAAAAAAB7AAQAAAAFAAAAAAB8AAQAAAAFAAAAAAB9AAQAAAAFAAAAAAB+AAQAAAAFAAAAAAB/AAQAAAAFAAAAAACAAAQAAAAFAAAAAACBAAQAAAAFAAAAAACCAAQAAAAFAAAAAACDAAQAAAAFAAAAAACEAAQAAAAFAAAAAACFAAQAAAAFAAAAAACGAAQAAAAFAAAAAACHAAQAAAAFAAAAAACIAAQAAAAFAAAAAACJAAQAAAAFAAAAAACKAAQAAAAFAAAAAACLAAQAAAAFAAAAAACMAAQAAAAFAAAAAACNAAQAAAAFAAAAAACOAAQAAAAFAAAAAACPAAQAAAAFAAAAAACQAAQAAAAFAAAAAABWAAIAAAAEAAAAAABwAAMAAAAFAAAAAABxAAMAAAAFAAAAAAAgAAIAAAAFAAAAAAAhAAIAAAACAAAAAAAiAAIAAAAFAAAAAAAjAAIAAAADAAAAAAAkAAIAAAAFAAAAAAAlAAIAAAAFAAAAAAAmAAIAAAAFAAAAAAAnAAIAAAACAAAAAAAoAAIAAAADAAAAAAApAAIAAAACAAAAAAAqAAIAAAAFAAAAAAArAAIAAAACAAAAAAAsAAIAAAAFAAAAAAAuAAIAAAAEAAAAAAAwAAIAAAADAAAAAAAxAAIAAAAFAAAAAAAyAAIAAAADAAAAAAA3AAIAAAAFAAAAAAA4AAIAAAAEAAAAAAA5AAIAAAADAAAAAAA6AAIAAAAFAAAAAAA7AAIAAAAFAAAAAAA8AAIAAAAFAAAAAABBAAIAAAAFAAAAAABCAAIAAAAEAAAAAABDAAIAAAAEAAAAAABEAAIAAAAFAAAAAABFAAIAAAAEAAAAAABGAAIAAAAFAAAAAABHAAIAAAADAAAAAABIAAIAAAADAAAAAAAvAAIAAAACAAAAAAA1AAIAAAAFAAAAAAA2AAIAAAAFAAAAAAA/AAIAAAAEAAAAAABAAAIAAAAFAAAAAACfAP3/AAACAAAAAACgAPn/AAADAAAAAACgAP3/AAACAAAAAAChAPn/AAADAAAAAAChAP3/AAADAAAAAACiAPn/AAADAAAAAACiAP3/AAADAAAAAACjAPn/AAADAAAAAACjAP3/AAADAAAAAACkAP3/AAADAAAAAAClAPn/AAADAAAAAAClAP3/AAADAAAAAACmAPn/AAADAAAAAACmAP3/AAADAAAAAACnAPn/AAADAAAAAACnAP3/AAADAAAAAACoAP3/AAADAAAAAACpAP3/AAADAAAAAACqAP3/AAADAAAAAACrAPn/AAADAAAAAACrAP3/AAADAAAAAACsAPn/AAADAAAAAACsAP3/AAADAAAAAACtAP3/AAADAAAAAACuAPn/AAADAAAAAACuAP3/AAADAAAAAACvAPn/AAADAAAAAACvAP3/AAADAAAAAACwAPn/AAADAAAAAACwAP3/AAADAAAAAACxAPn/AAADAAAAAACxAP3/AAADAAAAAACyAP3/AAADAAAAAACzAP3/AAADAAAAAAC0APn/AAADAAAAAAC0AP3/AAADAAAAAAC1APn/AAADAAAAAAC1AP3/AAADAAAAAAC2APn/AAADAAAAAAC2AP3/AAADAAAAAAC3AP3/AAAEAAAAAAC4AP3/AAAEAAAAAAC5APn/AAABAAAAAAC5AP3/AAABAAAAAAC6APn/AAADAAAAAAC7APn/AAAEAAAAAAC8APn/AAAEAAAAAAC9APn/AAADAAAAAAC+APn/AAADAAAAAAC/APn/AAADAAAAAADCAPn/AAADAAAAAACSAP3/AAAFAAAAAACTAPn/AAACAAAAAACTAP3/AAACAAAAAACUAPn/AAACAAAAAACUAP3/AAAFAAAAAACVAPn/AAACAAAAAACVAP3/AAAFAAAAAACWAPn/AAACAAAAAACWAP3/AAAFAAAAAACXAPn/AAACAAAAAACXAP3/AAAFAAAAAACYAPn/AAACAAAAAACYAP3/AAAFAAAAAACZAPn/AAACAAAAAACZAP3/AAACAAAAAACaAP3/AAACAAAAAACbAP3/AAACAAAAAACcAPn/AAACAAAAAACcAP3/AAACAAAAAACdAPn/AAADAAAAAACdAP3/AAACAAAAAACeAPn/AAACAAAAAACeAP3/AAACAAAAAACoAPn/AAADAAAAAACtAPn/AAADAAAAAAC5APr/AAABAAAAAAC5APv/AAABAAAAAAC5APz/AAABAAAAAADAAPn/AAADAAAAAADBAPn/AAADAAAAAABnAAMAAAADAAAAAABmAAMAAAADAAAAAABXAAIAAAACAAAAAABYAAIAAAACAAAAAADDAPn/AAACAAAAAADEAPn/AAAEAAAAAADFAPn/AAAEAAAAAADGAPn/AAACAAAAAADHAPn/AAACAAAAAADIAPn/AAACAAAAAADJAPn/AAACAAAAAADKAPn/AAACAAAAAADNAPn/AAACAAAAAADOAPn/AAACAAAAAADPAPn/AAACAAAAAADQAPn/AAACAAAAAADRAPn/AAACAAAAAADSAPn/AAACAAAAAADTAPn/AAACAAAAAADUAPn/AAACAAAAAADaAPn/AAACAAAAAADbAPn/AAACAAAAAADcAPn/AAACAAAAAADeAPn/AAACAAAAAADfAPn/AAACAAAAAADgAPn/AAACAAAAAADhAPn/AAACAAAAAADjAPn/AAACAAAAAADkAPn/AAACAAAAAADmAPn/AAACAAAAAADdAPn/AAACAAAAAADlAPn/AAACAAAAAADnAPn/AAADAAAAAADoAPn/AAADAAAAAADpAPn/AAADAAAAAADqAPn/AAADAAAAAADrAPn/AAAEAAAAAADsAPn/AAADAAAAAADvAPn/AAADAAAAAADwAPn/AAAEAAAAAADxAPn/AAAEAAAAAADyAPn/AAADAAAAAAD1APn/AAADAAAAAAD2APn/AAAEAAAAAAD3APn/AAADAAAAAAD4APn/AAADAAAAAAD7APn/AAADAAAAAAD8APn/AAAEAAAAAAD9APn/AAAEAAAAAAD+APn/AAADAAAAAAD/APn/AAADAAAAAAAAAfn/AAADAAAAAAABAfn/AAADAAAAAAACAfn/AAAFAAAAAAADAfn/AAAFAAAAAAAEAfn/AAAFAAAAAAAFAfn/AAAEAAAAAAAGAfn/AAAFAAAAAAAHAfn/AAAFAAAAAAAIAfn/AAAFAAAAAAAJAfn/AAAEAAAAAAAKAfn/AAAFAAAAAAALAfn/AAAFAAAAAAAMAfn/AAAFAAAAAAANAfn/AAAEAAAAAAAOAfn/AAAFAAAAAAAPAfn/AAAFAAAAAAAQAfn/AAAFAAAAAAARAfn/AAAEAAAAAAASAfn/AAAFAAAAAAATAfn/AAAFAAAAAAAVAfn/AAAEAAAAAAAUAfn/AAADAAAAAADVAPn/AAACAAAAAADWAPn/AAACAAAAAAAWAfn/AAACAAAAAAAXAfn/AAACAAAAAAAYAfn/AAACAAAAAAAZAfn/AAADAAAAAAAaAfn/AAACAAAAAAAbAfn/AAADAAAAAAAcAfn/AAACAAAAAAAdAfn/AAACAAAAAAAeAfn/AAAEAAAAAAAfAfn/AAADAAAAAAAgAfn/AAACAAAAAAAhAfn/AAAEAAAAAAAiAfn/AAACAAAAAAAjAfn/AAACAAAAAAAkAfn/AAACAAAAAAAlAfn/AAACAAAAAACSAPn/AAACAAAAAAAoAfL/AAACAAAAAAApAfL/AAACAAAAAAAqAfL/AAACAAAAAAArAfL/AAACAAAAAAAsAfL/AAACAAAAAAAtAfL/AAAEAAAAAAAuAfL/AAACAAAAAAAvAfL/AAACAAAAAAAwAfL/AAACAAAAAAAxAfL/AAAEAAAAAAAyAfL/AAACAAAAAAAzAfL/AAACAAAAAAA0AfL/AAACAAAAAAA1AfL/AAACAAAAAAA2AfL/AAAEAAAAAAA3AfL/AAACAAAAAAA4AfL/AAAEAAAAAAA/Aer/AAACAAAAAABAAer/AAAEAAAAAABBAer/AAACAAAAAABCAer/AAADAAAAAABDAer/AAADAAAAAABEAer/AAADAAAAAABFAer/AAACAAAAAABGAer/AAACAAAAAABHAer/AAAEAAAAAABIAer/AAAEAAAAAABJAer/AAACAAAAAABLAer/AAADAAAAAABMAer/AAACAAAAAABRAeP/AAACAAAAAABSAeP/AAADAAAAAABTAeP/AAADAAAAAABUAeP/AAADAAAAAABVAeP/AAACAAAAAABWAeP/AAACAAAAAABXAeP/AAAEAAAAAABYAeP/AAAEAAAAAABZAeP/AAACAAAAAABaAeP/AAACAAAAAABbAeP/AAADAAAAAABcAeP/AAACAAAAAABdAeP/AAACAAAAAABeAeP/AAACAAAAAABfAeP/AAACAAAAAABgAeP/AAACAAAAAABhAeP/AAADAAAAAABiAeP/AAAEAAAAAABjAeP/AAAEAAAAAABkAeP/AAADAAAAAABlAeP/AAADAAAAAABmAeP/AAACAAAAAABnAeP/AAACAAAAAABoAeP/AAACAAAAAABpAeP/AAACAAAAAABqAeP/AAACAAAAAABrAeP/AAABAAAAAABsAeP/AAABAAAAAABtAeP/AAABAAAAAABuAeP/AAABAAAAAABvAeP/AAABAAAAAABwAeP/AAACAAAAAABxAeP/AAACAAAAAAByAeP/AAACAAAAAAB5Aer/AAADAAAAAAB6Aer/AAADAAAAAAB7Aer/AAADAAAAAAB8Aer/AAADAAAAAAB9Aer/AAADAAAAAAB+Aer/AAADAAAAAAB/AeP/AAADAAAAAACAAeP/AAADAAAAAACBAeP/AAACAAAAAACCAeP/AAACAAAAAACDAeP/AAACAAAAAACHAeP/AAADAAAAAACIAeP/AAACAAAAAACJAeP/AAACAAAAAACKAeP/AAAEAAAAAACLAeP/AAAEAAAAAACMAeP/AAAEAAAAAACPAeP/AAACAAAAAACQAeP/AAACAAAAAACRAeP/AAAEAAAAAACSAeP/AAABAAAAAACTAeP/AAABAAAAAACUAeP/AAABAAAAAACZAeP/AAABAAAAAACaAeP/AAABAAAAAACbAeP/AAABAAAAAACcAeP/AAABAAAAAAClAeP/AAABAAAAAACmAeP/AAABAAAAAACnAeP/AAABAAAAAACoAeP/AAABAAAAAACpAeP/AAABAAAAAAB/Aer/AAADAAAAAACEAeP/AAACAAAAAACNAeP/AAACAAAAAACVAeP/AAABAAAAAACdAeP/AAABAAAAAACqAeP/AAABAAAAAAB/Aen/AAACAAAAAAB/Aej/AAACAAAAAAB/Aef/AAACAAAAAAB/Aeb/AAACAAAAAAB/AeX/AAACAAAAAAB/AeT/AAACAAAAAAB0AeT/AAACAAAAAABzAeT/AAACAAAAAAA+Aer/AAACAAAAAAA9Aer/AAACAAAAAAA5AfL/AAACAAAAAABKAer/AAADAAAAAAA=")
+tile_set = SubResource("TileSet_y5wg1")
+
+[node name="KillBox" type="Area2D" parent="." unique_id=1008442917]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillBox" unique_id=1038772208]
+position = Vector2(100573, 1811)
+shape = SubResource("RectangleShape2D_vxrlp")
+debug_color = Color(0.8680902, 0.31244054, 0.43734047, 0.41960785)
+
+[node name="Enemy" type="StaticBody2D" parent="." unique_id=1041692605]
+position = Vector2(8086, 468)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy" unique_id=159196840]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy" unique_id=342626975]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Spring" type="AnimatedSprite2D" parent="." unique_id=1052195642]
+unique_name_in_owner = true
+position = Vector2(36267, 886)
+sprite_frames = SubResource("SpriteFrames_xrkxx")
+animation = &"Bounce"
+script = ExtResource("52_o2jwt")
+
+[node name="SpringArea" type="Area2D" parent="Spring" unique_id=1976994305]
+unique_name_in_owner = true
+position = Vector2(-5, -5)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring/SpringArea" unique_id=897587125]
+position = Vector2(-10, 46)
+shape = SubResource("RectangleShape2D_vo1wn")
+debug_color = Color(0.59792495, 0.5419482, 0.15529343, 0.41960785)
+
+[node name="Spring2" type="AnimatedSprite2D" parent="." unique_id=469975237]
+unique_name_in_owner = true
+position = Vector2(75110, -1929)
+sprite_frames = SubResource("SpriteFrames_xrkxx")
+animation = &"Bounce"
+script = ExtResource("52_o2jwt")
+
+[node name="SpringArea" type="Area2D" parent="Spring2" unique_id=1166081887]
+position = Vector2(-5, -5)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring2/SpringArea" unique_id=1351544407]
+position = Vector2(-10, 46)
+shape = SubResource("RectangleShape2D_vo1wn")
+debug_color = Color(0.59792495, 0.5419482, 0.15529343, 0.41960785)
+
+[node name="Spring4" type="AnimatedSprite2D" parent="." unique_id=1334202136]
+unique_name_in_owner = true
+position = Vector2(80304, -3720)
+sprite_frames = SubResource("SpriteFrames_xrkxx")
+animation = &"Bounce"
+script = ExtResource("52_o2jwt")
+
+[node name="SpringArea" type="Area2D" parent="Spring4" unique_id=2126795539]
+position = Vector2(-5, -5)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring4/SpringArea" unique_id=73658880]
+position = Vector2(-10, 46)
+shape = SubResource("RectangleShape2D_vo1wn")
+debug_color = Color(0.59792495, 0.5419482, 0.15529343, 0.41960785)
+
+[node name="Spring3" type="AnimatedSprite2D" parent="." unique_id=2010867505]
+unique_name_in_owner = true
+position = Vector2(47070, -946)
+sprite_frames = SubResource("SpriteFrames_xrkxx")
+animation = &"Bounce"
+script = ExtResource("52_o2jwt")
+
+[node name="SpringArea" type="Area2D" parent="Spring3" unique_id=1010332085]
+position = Vector2(-5, -5)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring3/SpringArea" unique_id=879300969]
+position = Vector2(-10, 46)
+shape = SubResource("RectangleShape2D_vo1wn")
+debug_color = Color(0.59792495, 0.5419482, 0.15529343, 0.41960785)
+
+[node name="Spring5" type="AnimatedSprite2D" parent="." unique_id=895016303]
+unique_name_in_owner = true
+position = Vector2(84921, -5785)
+sprite_frames = SubResource("SpriteFrames_xrkxx")
+animation = &"Bounce"
+script = ExtResource("52_o2jwt")
+
+[node name="SpringArea" type="Area2D" parent="Spring5" unique_id=1379761205]
+position = Vector2(-5, -5)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring5/SpringArea" unique_id=479626586]
+position = Vector2(-10, 46)
+shape = SubResource("RectangleShape2D_vo1wn")
+debug_color = Color(0.59792495, 0.5419482, 0.15529343, 0.41960785)
+
+[node name="Spring6" type="AnimatedSprite2D" parent="." unique_id=1706337564]
+unique_name_in_owner = true
+position = Vector2(97295, -5785)
+sprite_frames = SubResource("SpriteFrames_xrkxx")
+animation = &"Bounce"
+script = ExtResource("52_o2jwt")
+
+[node name="SpringArea" type="Area2D" parent="Spring6" unique_id=1588247680]
+position = Vector2(-5, -5)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring6/SpringArea" unique_id=2117085725]
+position = Vector2(-10, 46)
+shape = SubResource("RectangleShape2D_vo1wn")
+debug_color = Color(0.59792495, 0.5419482, 0.15529343, 0.41960785)
+
+[node name="Enemy2" type="StaticBody2D" parent="." unique_id=905855657]
+position = Vector2(17470, 465)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy2" unique_id=1260427848]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy2" unique_id=1536918507]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy3" type="StaticBody2D" parent="." unique_id=427580406]
+position = Vector2(26678, 705)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy3" unique_id=133634815]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy3" unique_id=11646103]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy4" type="StaticBody2D" parent="." unique_id=242257533]
+position = Vector2(29581, 980)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy4" unique_id=750091686]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy4" unique_id=1516374455]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy5" type="StaticBody2D" parent="." unique_id=1825604005]
+position = Vector2(30827, 976)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy5" unique_id=1069402023]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy5" unique_id=677802376]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy6" type="StaticBody2D" parent="." unique_id=635513835]
+position = Vector2(32517, 980)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy6" unique_id=896258585]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy6" unique_id=1200035690]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy7" type="StaticBody2D" parent="." unique_id=318101811]
+position = Vector2(33803, 980)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy7" unique_id=1433502291]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy7" unique_id=105273436]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy8" type="StaticBody2D" parent="." unique_id=815753887]
+position = Vector2(35049, 976)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy8" unique_id=1814929928]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy8" unique_id=833423849]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy10" type="StaticBody2D" parent="." unique_id=1871858908]
+position = Vector2(41169, -814)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy10" unique_id=1006646798]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy10" unique_id=1745790579]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy11" type="StaticBody2D" parent="." unique_id=976393877]
+position = Vector2(42421, -814)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy11" unique_id=840999929]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy11" unique_id=1242522669]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy12" type="StaticBody2D" parent="." unique_id=85817648]
+position = Vector2(44111, -816)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy12" unique_id=212124153]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy12" unique_id=1249233891]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy13" type="StaticBody2D" parent="." unique_id=494468608]
+position = Vector2(46050, -817)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy13" unique_id=1985405708]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy13" unique_id=1116952539]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy14" type="StaticBody2D" parent="." unique_id=532908534]
+position = Vector2(65972, -1837)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy14" unique_id=413005441]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy14" unique_id=1653355791]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[node name="Enemy15" type="StaticBody2D" parent="." unique_id=659034997]
+position = Vector2(48992, -819)
+collision_layer = 4
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy15" unique_id=461447683]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("48_y5wg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy15" unique_id=746906576]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_ewk01")
+debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
+
+[connection signal="timeout" from="Catbanana/jumpTimer" to="Catbanana" method="_on_jump_timer_timeout"]
+[connection signal="body_entered" from="Catbanana/Diebox" to="Catbanana" method="_on_diebox_body_entered"]
+[connection signal="body_entered" from="KillBox" to="Catbanana" method="_on_kill_box_body_entered"]
+[connection signal="body_entered" from="Spring/SpringArea" to="Catbanana" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring/SpringArea" to="Spring" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring2/SpringArea" to="Catbanana" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring2/SpringArea" to="Spring2" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring4/SpringArea" to="Catbanana" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring4/SpringArea" to="Spring4" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring3/SpringArea" to="Catbanana" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring3/SpringArea" to="Spring3" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring5/SpringArea" to="Catbanana" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring5/SpringArea" to="Spring5" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring6/SpringArea" to="Catbanana" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring6/SpringArea" to="Spring6" method="_on_spring_area_body_entered"]
