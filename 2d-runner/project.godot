@@ -19,6 +19,11 @@ run/main_scene="res://2d_runner_game.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1151
+window/size/viewport_height=650
+
 [input]
 
 Jump={

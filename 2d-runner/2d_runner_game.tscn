@@ -371,10 +371,10 @@ autoplay = true
 
 [node name="ColorRect" type="ColorRect" parent="Catbanana"]
 z_index = -5
-offset_left = -1442.0
-offset_top = -1030.0
-offset_right = 1953.0
-offset_bottom = 1154.0
+offset_left = -2203.0
+offset_top = -3002.0
+offset_right = 10383.0
+offset_bottom = 3044.0
 color = Color(0.11372549, 0.02745098, 0.14117648, 1)
 
 [node name="TileMap" type="TileMapLayer" parent="."]
@@ -404,24 +404,6 @@ position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_ewk01")
 debug_color = Color(0.65856564, 0.43200007, 0.7381971, 0.41960785)
 
-[node name="Spring" type="AnimatedSprite2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(36267, 886)
-sprite_frames = SubResource("SpriteFrames_xrkxx")
-animation = &"Bounce"
-script = ExtResource("52_o2jwt")
-
-[node name="SpringArea" type="Area2D" parent="Spring"]
-unique_name_in_owner = true
-position = Vector2(-113664, -9690)
-collision_layer = 8
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring/SpringArea"]
-position = Vector2(-10, 46)
-shape = SubResource("RectangleShape2D_vo1wn")
-debug_color = Color(0.59792495, 0.5419482, 0.15529343, 0.41960785)
-
 [node name="Spring2" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(75110, -1929)
@@ -435,6 +417,23 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spring2/SpringArea"]
+position = Vector2(-10, 46)
+shape = SubResource("RectangleShape2D_vo1wn")
+debug_color = Color(0.59792495, 0.5419482, 0.15529343, 0.41960785)
+
+[node name="Spring8" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(36266, 884)
+sprite_frames = SubResource("SpriteFrames_xrkxx")
+animation = &"Bounce"
+script = ExtResource("52_o2jwt")
+
+[node name="SpringArea" type="Area2D" parent="Spring8"]
+position = Vector2(-5, -5)
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring8/SpringArea"]
 position = Vector2(-10, 46)
 shape = SubResource("RectangleShape2D_vo1wn")
 debug_color = Color(0.59792495, 0.5419482, 0.15529343, 0.41960785)
@@ -739,10 +738,10 @@ text = "Double jump!"
 [connection signal="timeout" from="Catbanana/jumpTimer" to="Catbanana" method="_on_jump_timer_timeout"]
 [connection signal="body_entered" from="Catbanana/Diebox" to="Catbanana" method="_on_diebox_body_entered"]
 [connection signal="body_entered" from="KillBox" to="Catbanana" method="_on_kill_box_body_entered"]
-[connection signal="body_entered" from="Spring/SpringArea" to="Catbanana" method="_on_spring_area_body_entered"]
-[connection signal="body_entered" from="Spring/SpringArea" to="Spring" method="_on_spring_area_body_entered"]
 [connection signal="body_entered" from="Spring2/SpringArea" to="Catbanana" method="_on_spring_area_body_entered"]
 [connection signal="body_entered" from="Spring2/SpringArea" to="Spring2" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring8/SpringArea" to="Catbanana" method="_on_spring_area_body_entered"]
+[connection signal="body_entered" from="Spring8/SpringArea" to="Spring8" method="_on_spring_area_body_entered"]
 [connection signal="body_entered" from="Spring4/SpringArea" to="Catbanana" method="_on_spring_area_body_entered"]
 [connection signal="body_entered" from="Spring4/SpringArea" to="Spring4" method="_on_spring_area_body_entered"]
 [connection signal="body_entered" from="Spring7/SpringArea" to="Catbanana" method="_on_spring_area_body_entered"]
